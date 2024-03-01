@@ -5,7 +5,13 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu
+    env:
+      DB_HOST: 127.0.0.1
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PASS: abcd
+      DB_DATABASE: oz_django
     steps:
       - name: Check out the codes
         uses: actions/checkout@v2
