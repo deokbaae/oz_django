@@ -1,3 +1,31 @@
-from django.test import TestCase
+from django.test import Client, TestCase
+
+from article.models import Article, Comment
 
 # Create your tests here.
+
+
+# test create comment
+class TestCreateComment(TestCase):
+
+    def test_create_comment(self) -> None:
+        client = Client()
+        # Given
+        article = Article.create_one("test_article_author", "test_article_title", "test_article_body")
+
+        # When
+        response = client.post(
+            "/v1/comments",
+            {
+                "author": (test_author := "test_comment_author"),
+                "body": (test_body := "test_comment_body"),
+                "article_id": article.id,
+            },
+        )
+
+        # Then
+        self.assertEqual(response.status_code, 200)
+        comment_id = response.json()["comment_id"]
+        result_comment = Comment.objects.get(id=comment_id)
+        self.assertEqual(result_comment.author, test_author)
+        self.assertEqual(result_comment.body, test_body)
