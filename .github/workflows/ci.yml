@@ -38,11 +38,11 @@ jobs:
       - name: Install Poetry
         run: |
           curl -sSL curl -sSL https://install.python-poetry.org | python3 -
-          echo "${HOME}/.poetry/bin" >> $GITHUB_PATH
+          echo "${HOME}/.local/bin" >> $GITHUB_PATH
 
       - name: Install dependencies
         run: |
-          ${HOME}/.poetry/bin/poetry install
+          poetry install
 
       - name: Run black
         run: |
