@@ -1,3 +1,5 @@
+import json
+
 from django.test import Client, TestCase
 
 from article.models import Article, Comment
@@ -16,11 +18,14 @@ class TestCreateComment(TestCase):
         # When
         response = client.post(
             "/v1/comments",
-            {
-                "author": (test_author := "test_comment_author"),
-                "body": (test_body := "test_comment_body"),
-                "article_id": article.id,
-            },
+            json.dumps(
+                {
+                    "author": (test_author := "test_comment_author"),
+                    "body": (test_body := "test_comment_body"),
+                    "article_id": article.id,
+                }
+            ),
+            content_type="application/json",
         )
 
         # Then
