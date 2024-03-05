@@ -10,7 +10,7 @@ jobs:
       DB_HOST: 127.0.0.1
       DB_PORT: 3306
       DB_USER: root
-      DB_PASS: 1234
+      DB_PASSWORD: 1234
       DB_DATABASE: oz_django
     steps:
       - name: Check out the codes
@@ -56,8 +56,8 @@ jobs:
         run: |
           poetry run mypy .
 
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
+#      - name: Setup tmate session
+#        uses: mxschmitt/action-tmate@v3
 
       - name: Test python project
         run: |
